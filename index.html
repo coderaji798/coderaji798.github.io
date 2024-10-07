@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CoderAji的个人博客</title>
+    <script src="src/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="head">
+    <div>
+        <span class="title">Home</span>
+        <span class="title">Blog</span>
+        <span class="title">About</span>
+    </div>
+    <span id="mode">
+        <img src="src/img/moon.png"/>
+    </span>
+</div>
+<div class="line"></div>
+<div id="body"></div>
+
+</body>
+</html>
+<style>
+    #head, .line {
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+        margin: 20px auto;
+    }
+
+    .title, #mode {
+        width: 15%;
+        height: 30px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    #mode {
+        float: right;
+        width: 34px;
+        height: 34px;
+        border-radius: 17px;
+        background-color: #e1e8f0;
+    }
+
+    #mode img{
+        width: 28px;
+        height: 28px;
+        margin-top: 3px;;
+    }
+
+    .line {
+        border-style: none none solid none;
+    }
+
+</style>
+<script>
+    $(document).ready(function () {
+        $("#mode").click(function () {
+            const moon = 'src/img/moon.png';
+            const sun = 'src/img/sun.png';
+            //获取图标路径
+            const src = $("#mode img").attr("src");
+            if (moon === src) {
+                $("#mode img").attr("src", sun)
+                $("body").css({"background-color": "#121212", "color": "white"})
+            } else {
+                $("#mode img").attr("src", moon)
+                $("body").css({"background-color": "white", "color": "black"})
+            }
+        });
+    });
+</script>
