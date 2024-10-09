@@ -9,9 +9,9 @@
 <div id="container">
     <div id="header">
         <div>
-            <span class="title">首页</span>
-            <span class="title">博客</span>
-            <span class="title">关于我</span>
+            <span class="title" src="src/html/home.html">首页</span>
+            <span class="title" src="src/html/blog.html">博客</span>
+            <span class="title" src="src/html/about-me.html">关于我</span>
             <span class="title">
             <span id="write">写作</span>
             <a id="editor" href="editor.html" target="_blank" hidden="hidden"><span>Editor</span></a>
@@ -23,7 +23,7 @@
     </div>
     <div id="main">
         <div id="catalogue"></div>
-        <iframe id="content"></iframe>
+        <iframe id="content" src="src/html/home.html"></iframe>
     </div>
     <div id="footer">
         <a href="https://github.com/coderaji798"><img src="src/img/github.png"/></a>
@@ -35,20 +35,42 @@
 </html>
 <script>
     $(document).ready(function () {
+        const moon = 'src/img/moon.png';
+        const sun = 'src/img/sun.png';
         //切换主题
         $("#mode").click(function () {
-            const moon = 'src/img/moon.png';
-            const sun = 'src/img/sun.png';
             //获取图标路径
             const img = $("#mode img");
             if (moon === img.attr("src")) {
-                img.attr("src", sun)
-                $("body").css({"background-color": "#121212", "color": "white"})
+                dark()
             } else {
-                img.attr("src", moon)
-                $("body").css({"background-color": "white", "color": "black"})
+                light()
             }
         });
+        const content = $("#content");
+        content.on("load", function () {
+            const img = $("#mode img");
+            if (moon === img.attr("src")) {
+                light()
+            } else {
+                dark()
+            }
+        })
+
+        function dark() {
+            $("#mode img").attr("src", sun)
+            const dark = {"background-color": "#121212", "color": "white"}
+            $("body").css(dark)
+            content.contents().find('body').css(dark)
+        }
+
+        function light() {
+            $("#mode img").attr("src", moon)
+            const light = {"background-color": "#ffffff", "color": "black"}
+            $("body").css(light)
+            content.contents().find('body').css(light)
+        }
+
         //鼠标经过title上方
         const title = $(".title");
         title.on("mouseenter", function () {
@@ -66,6 +88,10 @@
         title.on("click", function () {
             title.css("border-style", "")
             $(this).css("border-style", "none none solid none")
+            const src = $(this).attr("src");
+            if (src) {
+                content.attr("src", src)
+            }
         })
         //鼠标点击事件
         $("#write").on("click", function () {
