@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>关于我</title>
+    <script src="../js/jquery.min.js"></script>
 </head>
 <body>
 <div>
@@ -20,6 +21,11 @@
 </div>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        console.log($("#catalogue", window.parent));
+    })
+</script>
 <style>
     #about-me {
         font-size: larger;
