@@ -12,7 +12,10 @@
     <div id="toolbar-container"><!-- 工具栏 --></div>
     <div id="editor-container"><!-- 编辑器 --></div>
 </div>
-<input type="button" id="download" value="DOWNLOAD"/>
+<div>
+    <label for="file-name">FILE NAME:</label><input type="text" id="file-name" placeholder="FILE NAME"/>
+    <input type="button" id="download" value="DOWNLOAD"/>
+</div>
 </body>
 </html>
 <script>
@@ -48,7 +51,7 @@
             const blob = new Blob([html], {type: "text/html"});
             const element = document.createElement("a");
             element.href = window.URL.createObjectURL(blob);
-            element.download = `${Date.now()}.html`
+            element.download = `${$("#file-name").val()}.html`
             element.click()
             window.URL.revokeObjectURL(element.href)
         })

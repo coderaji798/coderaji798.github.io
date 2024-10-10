@@ -4,13 +4,42 @@
     <meta charset="UTF-8">
     <title>博客</title>
     <script src="../js/jquery.min.js"></script>
+    <script src="../js/blog.list.js"></script>
 </head>
 <body>
-
+<div>
+    <div id="blogs"></div>
+    <div id="pages">
+        <button id="page-up" value="1" disabled>上一页</button>
+        <span id="page-num"></span>
+        <button id="page-down">下一页</button>
+    </div>
+</div>
 </body>
 </html>
 <script>
-    $(document).ready(function () {
+    $(() => {
+        //博客列表
+        const pageSize = 10
+        const blogs = $("#blogs");
+        const item = '<div class="blog-item"></div>'
+        for (let i = 0; i < pageSize && blogList.length > i; i++) {
+            const div = $(item);
+            div.html(blogList[i].title)
+            div.attr("path", blogList[i].path)
+            blogs.append(div)
+        }
+        //分页
+        const pages = blogList.length % pageSize === 0 ? blogList.length / pageSize : blogList.length / pageSize + 1
+        for (let i = 1; i <= pages; i++) {
+            $("#page-num").append($(`<span class="page-num">${i}</span>`))
+        }
+        $('#page-up').click(() => {
+
+        })
+        $('#page-down').click(() => {
+
+        })
         console.log($("#catalogue", window.parent));
     })
 </script>

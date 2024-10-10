@@ -59,7 +59,7 @@
 
         function dark() {
             $("#mode img").attr("src", sun)
-            const dark = {"background-color": "#121212", "color": "white"}
+            const dark = {"background-color": "#05062d", "color": "white"}
             $("body").css(dark)
             content.contents().find('body').css(dark)
         }
@@ -75,7 +75,7 @@
         const title = $(".title");
         title.on("mouseenter", function () {
             var backgroundColor = $("body").css("background-color");
-            if ('rgb(18, 18, 18)' === backgroundColor) {
+            if ('rgb(5, 6, 45)' === backgroundColor) {
                 $(this).css("color", "#D3D3D3")
             } else {
                 $(this).css("color", "#808080")
@@ -157,7 +157,6 @@
 
     #catalogue {
         width: 15%;
-        border-right: dashed;
     }
 
     #content {
