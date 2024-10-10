@@ -10,7 +10,7 @@
 <div>
     <div id="blogs"></div>
     <div id="pages">
-        <button id="page-up" value="1" disabled>上一页</button>
+        <button id="page-up" disabled>上一页</button>
         <span id="page-num"></span>
         <button id="page-down">下一页</button>
     </div>
@@ -19,26 +19,54 @@
 </html>
 <script>
     $(() => {
-        //博客列表
         const pageSize = 10
-        const blogs = $("#blogs");
-        const item = '<div class="blog-item"></div>'
-        for (let i = 0; i < pageSize && blogList.length > i; i++) {
-            const div = $(item);
-            div.html(blogList[i].title)
-            div.attr("path", blogList[i].path)
-            blogs.append(div)
+        let current = 1;
+        initBlogList()
+
+        //博客列表
+        function initBlogList() {
+            const blogs = $("#blogs");
+            blogs.empty()
+            const item = '<div class="blog-item"></div>'
+            const start = (current - 1) * pageSize;
+            for (let i = start; i < current * pageSize && blogList.length > i; i++) {
+                const div = $(item);
+                div.html(blogList[i].title)
+                div.attr("path", blogList[i].path)
+                blogs.append(div)
+            }
         }
+
         //分页
-        const pages = blogList.length % pageSize === 0 ? blogList.length / pageSize : blogList.length / pageSize + 1
+        const pages = parseInt(blogList.length % pageSize === 0 ? blogList.length / pageSize : blogList.length / pageSize + 1)
         for (let i = 1; i <= pages; i++) {
             $("#page-num").append($(`<span class="page-num">${i}</span>`))
         }
         $('#page-up').click(() => {
-
+            if (current > 1 && current <= pages) {
+                current--
+                initBlogList()
+            }
         })
         $('#page-down').click(() => {
-
+            if (current >= 1 && current < pages) {
+                current++
+                initBlogList()
+            }
+        })
+        $("#pages").click(() => {
+            if (current === 1) {
+                $("#page-up").attr("disabled", "disabled")
+            } else if (current === pages) {
+                $("#page-down").attr("disabled", "disabled")
+            } else {
+                $("#page-up").removeAttr("disabled")
+                $("#page-down").removeAttr("disabled")
+            }
+        })
+        $('.page-num').on("click", (e) => {
+            current = parseInt($(e.target).html())
+            initBlogList()
         })
         console.log($("#catalogue", window.parent));
     })
