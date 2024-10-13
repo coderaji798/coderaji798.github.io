@@ -27,7 +27,7 @@
     </div>
     <div id="main">
         <div id="catalogue"></div>
-        <iframe id="content" src="src/html/home.html"></iframe>
+        <iframe id="content" name="content" src="src/html/home.html"></iframe>
     </div>
     <!--<div id="footer">
         <a href="https://github.com/coderaji798"><img src="src/img/github.png"/></a>
@@ -53,13 +53,29 @@
         });
         const content = $("#content");
         content.on("load", function () {
+            changeMode()
+
+            const child = $("#pages", content.contents());
+            child.on({
+                click: () => {
+                    console.log("click")
+                    changeMode()
+                },
+                keyup: () => {
+                    console.log("keyup")
+                    changeMode()
+                }
+            })
+        })
+
+        function changeMode() {
             const img = $("#mode img");
             if (moon === img.attr("src")) {
                 light()
             } else {
                 dark()
             }
-        })
+        }
 
         function dark() {
             $("#mode img").attr("src", sun)
@@ -174,13 +190,13 @@
         border: none;
     }
 
-/*    #footer {
-        height: 50px;
-        font-size: 22px;
-        text-align: center;
-    }*/
+    /*    #footer {
+            height: 50px;
+            font-size: 22px;
+            text-align: center;
+        }*/
 
-    #work img{
+    #work img {
         width: 30px;
         height: 30px;
         margin: 10px auto;
