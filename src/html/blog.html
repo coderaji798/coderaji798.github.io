@@ -62,8 +62,10 @@
         function initPageNum() {
             const page = $("#page-num");
             page.empty()
-            const start = pages - 4 > current ? current : pages - 4
-            for (let num = start; num <= start + 4; num++) {
+            let start = pages - 4 > current ? current : pages - 4
+            start = start > 0 ? start : 1
+            const end = start + 4 <= pages ? start + 4 : pages
+            for (let num = start; num <= end; num++) {
                 page.append($(`<span class="page-num" value="${num}">${num}</span>`))
             }
             $(`.page-num[value=${current}]`).css("background-color", "#D3D3D3")
