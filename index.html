@@ -81,16 +81,18 @@
             $("#mode img").attr("src", sun)
             const dark = {"background-color": "#05062d", "color": "white"}
             $("body").css(dark)
-            content.contents().find('body').css(dark)
+            $("#container").css({"background": "linear-gradient(to bottom, #15162D 0%, #05062D 100%)"})
+            content.contents().find('body').css({"color": "white"})
             content.contents().find('.blog-item').css({background: 'linear-gradient(to right, #895F15, #151889)'})
             content.contents().find('.page-num').css({"background-color": '#895F15'})
         }
 
         function light() {
             $("#mode img").attr("src", moon)
-            const light = {"background-color": "#ffffff", "color": "black"}
+            const light = {"background-color": "", "color": "black"}
             $("body").css(light)
-            content.contents().find('body').css(light)
+            $("#container").css({"background": "linear-gradient(120deg, #FFFAF9 0%, #F6FCFF 100%)"})
+            content.contents().find('body').css({"color": "black"})
             content.contents().find('.blog-item').css({background: 'linear-gradient(to right, #fef4eb, #e6f7f6)'})
             content.contents().find('.page-num').css({"background-color": '#fef4eb'})
         }
@@ -136,6 +138,7 @@
     #container {
         width: 70%;
         margin: auto;
+        background-image: linear-gradient(120deg, #ffffff 0%, #f1f4f5 100%);
     }
 
     #header {
