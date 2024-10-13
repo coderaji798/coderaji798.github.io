@@ -12,6 +12,7 @@
     <div id="pages">
         <button id="page-up" disabled>上一页</button>
         <span id="page-num"></span>
+        <span>跳跃至第<input id="jump-page" type="text" style="width: 50px">页</span>
         <button id="page-down">下一页</button>
     </div>
 </div>
@@ -21,9 +22,61 @@
     $(() => {
         const pageSize = 10
         let current = 1;
-        initBlogList()
+        //分页
+        const pages = parseInt(blogList.length % pageSize === 0 ? blogList.length / pageSize : blogList.length / pageSize + 1)
 
         //博客列表
+        initBlogList()
+        initPageNum()
+
+
+        $('#page-up').click(() => {
+            if (current > 1 && current <= pages) {
+                current--
+                initBlogList()
+                initPageNum()
+            }
+        })
+        $('#page-down').click(() => {
+            if (current >= 1 && current < pages) {
+                current++
+                initBlogList()
+                initPageNum()
+            }
+        })
+        $('.page-num').on("click", (e) => {
+            current = parseInt($(e.target).html())
+            initBlogList()
+            initPageNum()
+        })
+        $('#jump-page').on("keyup", (e) => {
+            let value = e.target.value
+            if (Number(value)) {
+                current = parseInt(value < 1 ? 1 : value > pages ? pages : value)
+                initBlogList()
+                initPageNum()
+            }
+        })
+        console.log($("#catalogue", window.parent));
+
+        function initPageNum() {
+            const page = $("#page-num");
+            page.empty()
+            const start = pages - 4 > current ? current : pages - 4
+            for (let num = start; num <= start + 4; num++) {
+                page.append($(`<span class="page-num" value="${num}">${num}</span>`))
+            }
+            $(`.page-num[value=${current}]`).css("background-color", "#D3D3D3")
+            if (current === 1) {
+                $("#page-up").attr("disabled", "disabled")
+            } else if (current === pages) {
+                $("#page-down").attr("disabled", "disabled")
+            } else if (current !== 1 || current !== pages) {
+                $("#page-up").removeAttr("disabled")
+                $("#page-down").removeAttr("disabled")
+            }
+        }
+
         function initBlogList() {
             const blogs = $("#blogs");
             blogs.empty()
@@ -37,37 +90,6 @@
             }
         }
 
-        //分页
-        const pages = parseInt(blogList.length % pageSize === 0 ? blogList.length / pageSize : blogList.length / pageSize + 1)
-        for (let i = 1; i <= pages; i++) {
-            $("#page-num").append($(`<span class="page-num">${i}</span>`))
-        }
-        $('#page-up').click(() => {
-            if (current > 1 && current <= pages) {
-                current--
-                initBlogList()
-            }
-        })
-        $('#page-down').click(() => {
-            if (current >= 1 && current < pages) {
-                current++
-                initBlogList()
-            }
-        })
-        $("#pages").click(() => {
-            if (current === 1) {
-                $("#page-up").attr("disabled", "disabled")
-            } else if (current === pages) {
-                $("#page-down").attr("disabled", "disabled")
-            } else {
-                $("#page-up").removeAttr("disabled")
-                $("#page-down").removeAttr("disabled")
-            }
-        })
-        $('.page-num').on("click", (e) => {
-            current = parseInt($(e.target).html())
-            initBlogList()
-        })
-        console.log($("#catalogue", window.parent));
+
     })
 </script>
