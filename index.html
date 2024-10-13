@@ -62,6 +62,8 @@
             const dark = {"background-color": "#05062d", "color": "white"}
             $("body").css(dark)
             content.contents().find('body').css(dark)
+            content.contents().find('.blog-item').css({background: 'linear-gradient(to right, #895F15, #151889)'})
+            content.contents().find('.page-num').css({"background-color": '#895F15'})
         }
 
         function light() {
@@ -69,6 +71,8 @@
             const light = {"background-color": "#ffffff", "color": "black"}
             $("body").css(light)
             content.contents().find('body').css(light)
+            content.contents().find('.blog-item').css({background: 'linear-gradient(to right, #fef4eb, #e6f7f6)'})
+            content.contents().find('.page-num').css({"background-color": '#fef4eb'})
         }
 
         //鼠标经过title上方
@@ -106,6 +110,7 @@
         margin: 0;
         height: 100%;
         width: 100%;
+        scrollbar-width: none;
     }
 
     #container {

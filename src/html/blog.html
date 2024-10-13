@@ -44,7 +44,7 @@
                 initPageNum()
             }
         })
-        $('.page-num').on("click", (e) => {
+        $('#page-num').on("click", (e) => {
             current = parseInt($(e.target).html())
             initBlogList()
             initPageNum()
@@ -57,6 +57,11 @@
                 initPageNum()
             }
         })
+
+        $('#blogs').on("click", (e) => {
+            console.log($(e.target).parent().attr("path"))
+            window.location.href = $(e.target).parent().attr("path")
+        })
         console.log($("#catalogue", window.parent));
 
         function initPageNum() {
@@ -68,7 +73,7 @@
             for (let num = start; num <= end; num++) {
                 page.append($(`<span class="page-num" value="${num}">${num}</span>`))
             }
-            $(`.page-num[value=${current}]`).css("background-color", "#D3D3D3")
+            $(`.page-num[value=${current}]`).css("background-color", "#fef4eb")
             if (current === 1) {
                 $("#page-up").attr("disabled", "disabled")
             } else if (current === pages) {
@@ -82,12 +87,13 @@
         function initBlogList() {
             const blogs = $("#blogs");
             blogs.empty()
-            const item = '<div class="blog-item"></div>'
+            const item = '<div class="blog-item"><img /><span></span></div>'
             const start = (current - 1) * pageSize;
             for (let i = start; i < current * pageSize && blogList.length > i; i++) {
                 const div = $(item);
-                div.html(blogList[i].title)
                 div.attr("path", blogList[i].path)
+                div.find('img').attr("src", blogList[i].icon)
+                div.find('span').html(blogList[i].title)
                 blogs.append(div)
             }
         }
@@ -95,3 +101,58 @@
 
     })
 </script>
+<style>
+    html, body {
+        padding: 0;
+        border: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        scrollbar-width: none;
+    }
+
+    #pages {
+        width: 65%;
+        text-align: center;
+        margin-top: 20px;
+        margin: auto;;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #pages span, button {
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        margin: auto 1px;
+    }
+
+    #page-up, #page-down {
+        border: solid 1px;
+        background-color: #fef4eb;
+        font-size: 16px;
+    }
+
+    .page-num {
+        width: 30px;
+        border: solid 1px;
+        margin: auto 1px;
+    }
+
+    .blog-item {
+        display: flex;
+        height: 50px;
+        line-height: 50px;
+        text-align: left;
+        margin: 1em auto;
+        padding: 10px;
+        background: linear-gradient(to right, #fef4eb, #e6f7f6);
+    }
+
+    .blog-item img {
+        margin: auto 10px;
+        height: 50px;
+        width: 50px;
+    }
+
+</style>
